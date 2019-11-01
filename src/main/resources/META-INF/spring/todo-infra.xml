@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    ">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://mybatis.org/schema/mybatis-spring
+        http://mybatis.org/schema/mybatis-spring.xsd">
+
+  <import resource="classpath:/META-INF/spring/projectName-env.xml" />
+
+  <!-- SqlSessionFactory を生成するためのコンポーネント -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- dataSource プロパティに、設定済みのデータソースのbeanを指定, MyBatis3の処理の中でSQLを発行する際は、ここで指定したデータソースからコネクションが取得される -->
+    <property name="dataSource" ref="dataSource" />
+    <!-- configLocation プロパティに、MyBatis設定ファイルのパスを指定, ここで指定したファイルがSqlSessionFactory を生成する時に読み込まれる -->
+    <property name="configLocation" value="classpath:/META-INF/mybatis/mybatis-config.xml" />
+  </bean>
+
+  <!-- Mapperインタフェースをスキャンするために<mybatis:scan> を定義し、base-package 属性には、 Mapperインタフェースが格納されている基底パッケージを指定 -->
+  <mybatis:scan base-package="com.example.todo.domain.repository" />
 
 </beans>
