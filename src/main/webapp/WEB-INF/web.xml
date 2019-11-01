@@ -92,12 +92,12 @@
 		<url-pattern>/api/v1/*</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<!-- ApplicationContext for Spring MVC -->
+			ApplicationContext for Spring MVC
 			<param-value>classpath*:META-INF/spring/spring-mvc.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -106,7 +106,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+ -->
 	<jsp-config>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
