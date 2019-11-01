@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- デプロイする環境によって設定が異なるコンポーネントの設定 -->
+
 <!-- トランザクション管理の設定 -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jee="http://www.springframework.org/schema/jee"
-    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-    xsi:schemaLocation="http://www.springframework.org/schema/jdbc
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+  xsi:schemaLocation="http://www.springframework.org/schema/jdbc
         http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
         http://www.springframework.org/schema/jee
         http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- PlatformTransactionManagerの設定 -->
-    <bean id="transactionManager"
-        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <!-- dataSource プロパティに、設定済みのデータソースのbeanを指定 -->
-        <property name="dataSource" ref="dataSource" />
-        <!-- コミット時にエラーが発生した場合にロールバック処理が呼び出される様に設定 -->
-        <property name="rollbackOnCommitFailure" value="true" />
-    </bean>
+
+  <!-- DB設定(todo-infra.propertiesから参照) -->
+  <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${database.driverClassName}" />
+    <property name="url" value="${database.url}" />
+    <property name="username" value="${database.username}" />
+    <property name="password" value="${database.password}" />
+    <property name="defaultAutoCommit" value="false" />
+    <property name="maxTotal" value="${cp.maxActive}" />
+    <property name="maxIdle" value="${cp.maxIdle}" />
+    <property name="minIdle" value="${cp.minIdle}" />
+    <property name="maxWaitMillis" value="${cp.maxWait}" />
+  </bean>
+
+  <!-- PlatformTransactionManagerの設定 -->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <!-- dataSource プロパティに、設定済みのデータソースのbeanを指定 -->
+    <property name="dataSource" ref="dataSource" />
+    <!-- コミット時にエラーが発生した場合にロールバック処理が呼び出される様に設定 -->
+    <property name="rollbackOnCommitFailure" value="true" />
+  </bean>
 </beans>
