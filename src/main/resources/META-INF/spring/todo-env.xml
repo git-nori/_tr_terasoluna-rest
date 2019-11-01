@@ -25,6 +25,12 @@
     <property name="maxWaitMillis" value="${cp.maxWait}" />
   </bean>
 
+  <!-- データベース初期化の設定(H2を使っているため設定) -->
+<!--   <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+    <jdbc:script location="classpath:/database/${database}-schema.sql" encoding="UTF-8" />
+    <jdbc:script location="classpath:/database/${database}-dataload.sql" encoding="UTF-8" />
+  </jdbc:initialize-database>
+ -->
   <!-- PlatformTransactionManagerの設定 -->
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <!-- dataSource プロパティに、設定済みのデータソースのbeanを指定 -->
