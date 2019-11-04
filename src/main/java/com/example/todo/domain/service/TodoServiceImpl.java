@@ -28,7 +28,9 @@ public class TodoServiceImpl implements TodoService {
     @Autowired
     TodoRepository todoRepository;
 
-    private Todo findOne(String todoId) {
+    @Override
+    @Transactional(readOnly = true)
+    public Todo findOne(String todoId) {
         Todo todo = todoRepository.findById(todoId).orElse(null);
         if (todo == null) {
             ResultMessages messages = ResultMessages.error(); // 結果メッセージを格納するクラスを用いてエラーメッセージを例外に追加する
