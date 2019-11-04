@@ -20,7 +20,7 @@
     FROM
       todo
     WHERE
-      tood_id = #{todoId}
+      todo_id = #{todoId}
       ]]>
   </select>
 
