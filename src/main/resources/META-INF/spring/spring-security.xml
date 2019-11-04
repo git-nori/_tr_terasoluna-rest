@@ -7,7 +7,8 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     ">
 
-    <sec:http pattern="/resources/**" security="none"/>
+<!-- <sec:http pattern="/resources/**" security="none"/> -->
+    <sec:http pattern="/api/v1/**" security="none"/>
     <sec:http>
         <sec:form-login/>
         <sec:logout/>
