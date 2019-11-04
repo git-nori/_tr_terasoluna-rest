@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,5 +65,11 @@ public class TodoRestController {
         Todo finishedTodo = todoService.finish(todoId);
         TodoResource todoResource = beanMapper.map(finishedTodo, TodoResource.class);
         return todoResource;
+    }
+
+    @DeleteMapping("/{todoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTodo(@PathVariable("todoId") String todoId) {
+        todoService.delete(todoId);
     }
 }
